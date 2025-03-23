@@ -347,6 +347,30 @@ function initializeSensitivityAnalysis() {
         }, 1500);
     }
     
+    // Volatility Sensitivity
+    const runSensitivityVol = document.getElementById('run-sensitivity-vol');
+    if (runSensitivityVol) {
+        runSensitivityVol.addEventListener('click', function() {
+            runVolatilitySensitivity();
+        });
+    }
+    
+    // Time Sensitivity
+    const runSensitivityTime = document.getElementById('run-sensitivity-time');
+    if (runSensitivityTime) {
+        runSensitivityTime.addEventListener('click', function() {
+            runTimeSensitivity();
+        });
+    }
+    
+    // Interest Rate Sensitivity
+    const runSensitivityInterest = document.getElementById('run-sensitivity-interest');
+    if (runSensitivityInterest) {
+        runSensitivityInterest.addEventListener('click', function() {
+            runInterestRateSensitivity();
+        });
+    }
+    
     // Set up tab switching
     const tabButtons = document.querySelectorAll('.tab-btn');
     tabButtons.forEach(button => {
@@ -436,12 +460,12 @@ function runStockPriceSensitivity() {
 }
 
 function runVolatilitySensitivity() {
-    const K = parseFloat(document.getElementById('sensitivity-k').value);
-    const t = parseFloat(document.getElementById('sensitivity-t').value);
-    const r = parseFloat(document.getElementById('sensitivity-r').value) / 100;
+    const K = parseFloat(document.getElementById('sensitivity-k-vol').value);
+    const t = parseFloat(document.getElementById('sensitivity-t-vol').value);
+    const r = parseFloat(document.getElementById('sensitivity-r-vol').value) / 100;
     const S = K; // At-the-money for simplicity
     
-    const plotDiv = document.getElementById('sensitivity-s-plot');
+    const plotDiv = document.getElementById('sensitivity-vol-plot');
     
     // Generate volatility values (1% to 100%)
     const sigmaValues = Array.from({ length: 100 }, (_, i) => (i + 1) / 100);
@@ -485,12 +509,12 @@ function runVolatilitySensitivity() {
 }
 
 function runTimeSensitivity() {
-    const K = parseFloat(document.getElementById('sensitivity-k').value);
+    const K = parseFloat(document.getElementById('sensitivity-k-time').value);
     const S = K; // At-the-money for simplicity
-    const r = parseFloat(document.getElementById('sensitivity-r').value) / 100;
-    const sigma = parseFloat(document.getElementById('sensitivity-sigma').value) / 100;
+    const r = parseFloat(document.getElementById('sensitivity-r-time').value) / 100;
+    const sigma = parseFloat(document.getElementById('sensitivity-sigma-time').value) / 100;
     
-    const plotDiv = document.getElementById('sensitivity-s-plot');
+    const plotDiv = document.getElementById('sensitivity-time-plot');
     
     // Generate time values (0.01 to 3 years)
     const tValues = Array.from({ length: 100 }, (_, i) => (i + 1) / 33);
@@ -534,12 +558,12 @@ function runTimeSensitivity() {
 }
 
 function runInterestRateSensitivity() {
-    const K = parseFloat(document.getElementById('sensitivity-k').value);
+    const K = parseFloat(document.getElementById('sensitivity-k-interest').value);
     const S = K; // At-the-money for simplicity
-    const t = parseFloat(document.getElementById('sensitivity-t').value);
-    const sigma = parseFloat(document.getElementById('sensitivity-sigma').value) / 100;
+    const t = parseFloat(document.getElementById('sensitivity-t-interest').value);
+    const sigma = parseFloat(document.getElementById('sensitivity-sigma-interest').value) / 100;
     
-    const plotDiv = document.getElementById('sensitivity-s-plot');
+    const plotDiv = document.getElementById('sensitivity-interest-plot');
     
     // Generate interest rate values (0% to 20%)
     const rValues = Array.from({ length: 100 }, (_, i) => i / 500);
